@@ -31,9 +31,11 @@ export default function Struktur({ products }) {
     <div className="grid grid-cols-[3fr_1fr] min-h-screen">
       <div className="grid grid-cols-3 items-center justify-items-center p-8 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
         {products.map((product) => (
-          <div key={product.id} className="p-3 rounded-lg shadow-sm bg-red-50">
+          <div key={product.id} className="p-3 rounded-lg shadow-sm bg-gray-50">
             <Image src={product.thumbnail} width={250} height={250} alt={product.title} />
-            <Link href={`/detaljer/${product.id}`}>{product.title}</Link>
+            <Link className="text-black" href={`/detaljer/${product.id}`}>
+              {product.title}
+            </Link>
             <Form addBasket={addBasket} product={product} />
           </div>
         ))}
