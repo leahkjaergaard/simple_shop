@@ -22,14 +22,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <header className="text-center p-3  bg-sky-950">
+        <header className="text-center p-3 bg-sky-950 flex justify-center">
           <nav>
             <ul className="flex gap-3">
               <li>
-                <Link href="/">Home</Link>
+                <Link href="/">HJEM</Link>
               </li>
               <li>
-                <Link href="/kontakt">Produkter</Link>
+                <Link href="/products">PRODUKTER</Link>
               </li>
             </ul>
           </nav>
