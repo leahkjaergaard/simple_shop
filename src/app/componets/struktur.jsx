@@ -6,16 +6,7 @@ import { useState } from "react";
 
 export default function Struktur({ products }) {
   const [cart, setCart] = useState([
-    // {
-    //   id: 1,
-    //   title: "tøj",
-    //   price: "120kr",
-    // },
-    // {
-    //   id: 2,
-    //   title: "tøj",
-    //   price: "999",
-    // },
+  
   ]);
 
   function addBasket(product) {
