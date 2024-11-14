@@ -18,7 +18,7 @@ export default function PaymentPage() {
   <div className="p-4 md:p-8">
     <div>
       <nav className="mb-4">
-        <Link href="/products" className="text-white p-2 rounded-lg text-sm md:text-base bg-sky-950">
+        <Link href="/products" className="text-white p-2 rounded-lg text-sm md:text-base bg-custom-green">
           Tilbage
         </Link>
       </nav>
@@ -34,7 +34,7 @@ export default function PaymentPage() {
         <div className="text-black">
           <p><b>{item.title}</b></p>
           <p>{item.price} DKK</p>
-          <span>{item.quantity}</span>
+          <p>Antal: {item.quantity}</p>
         </div>
       </li>
     ))}
@@ -44,7 +44,7 @@ export default function PaymentPage() {
   <div className="flex flex-col md:w-96 items-center justify-center h-full gap-3">
     <h2 className="text-3xl"><b>TOTAL</b></h2>
     <span>{totalPrice} Kr</span>
-    <button className="text-white p-2 rounded-lg text-sm md:text-base bg-sky-950">GÅ TIL BETALING</button>
+    <button className="text-white p-2 rounded-lg text-sm md:text-base bg-custom-green">GÅ TIL BETALING</button>
   </div>
 </ul>
 </div>
