@@ -89,6 +89,7 @@ function Form({ addBasket, product }) {
 }
 
 function Cartlist({ cart, deleteProduct }) {
+
   return (
     <div className="p-8 bg-sky-950">
       <h2 className="text-2xl mb-4">Indkøbskurv</h2>
@@ -102,8 +103,14 @@ function Cartlist({ cart, deleteProduct }) {
             <ListItem id={item.id} deleteProduct={deleteProduct} />
             </div>
           </li>
+
         ))}
       </ul>
+      <div>
+      <Link href={`/payment?items=${Cartlist}`}>
+        Go to Payment
+      </Link>
+    </div>
     </div>
   );
 }
