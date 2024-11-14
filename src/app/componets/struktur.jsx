@@ -50,7 +50,7 @@ export default function Struktur({ products }) {
               <label htmlFor="category-select" className="text-black">
                 <b>FILTER</b>
               </label>
-              <select id="category-select" className="bg-gray-800 text-white mx-4" value={category} onChange={handleCategoryChange}>
+              <select id="category-select" className="bg-custom-green text-white mx-4" value={category} onChange={handleCategoryChange}>
                 <option value="all">All</option>
                 <option value="beauty">Beauty</option>
                 <option value="fragrances">Fragrances</option>
@@ -109,7 +109,7 @@ function Cartlist({ cart, deleteProduct }) {
               </span>
               <span>{item.price} DKK</span>
               <span>Mængde: {item.quantity}</span>
-              n <ListItem id={item.id} deleteProduct={deleteProduct} />
+              <ListItem id={item.id} deleteProduct={deleteProduct} />
             </div>
           </li>
         ))}
