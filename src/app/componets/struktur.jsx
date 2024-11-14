@@ -44,7 +44,7 @@ export default function Struktur({ products }) {
   return (
     <div>
       <div>
-        <div className="grid grid-cols-[3fr_1fr] min-h-screen">
+        <div className={`grid min-h-screen relative ${cart.length > 0 ? "grid-cols-[4fr_1fr]" : "grid-cols-[4fr]"}`}>
           <div className="py-5">
             <div className="bg-white px-4">
               <label htmlFor="category-select" className="text-black">
@@ -58,7 +58,7 @@ export default function Struktur({ products }) {
                 <option value="groceries">Groceries</option>
               </select>
             </div>
-            <div className="grid sm:grid-cols-2 grid-cols-1 lg:grid-cols-3 items-center justify-items-center p-8 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
+            <div className="grid sm:grid-cols-2 grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 items-center justify-items-center p-8 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
               {filteredProducts.length > 0 ? (
                 filteredProducts.map((product) => (
                   <div key={product.id} className="p-3 rounded-lg shadow-sm flex flex-col gap-1">
@@ -77,7 +77,7 @@ export default function Struktur({ products }) {
               )}
             </div>
           </div>
-          <Cartlist cart={cart} deleteProduct={deleteProduct} />
+          {cart.length > 0 && <Cartlist cart={cart} deleteProduct={deleteProduct} />}
         </div>
       </div>
     </div>
@@ -97,7 +97,7 @@ function Cartlist({ cart, deleteProduct }) {
   const cartData = encodeURIComponent(JSON.stringify(cart));
 
   return (
-    <div className="p-8 bg-custom-beige text-black">
+    <div className="p-8 bg-custom-beige text-black min-h-48 max-h-fit sticky top-0">
       <h2 className="text-2xl mb-4">Indkøbskurv</h2>
       <ul>
         {cart.map((item) => (
@@ -114,7 +114,7 @@ function Cartlist({ cart, deleteProduct }) {
           </li>
         ))}
       </ul>
-      <div>
+      <div className="text-white p-2 rounded-lg text-sm md:text-base bg-custom-green w-fit">
         {/* Link til betalingsside med kurvdata i URL’en */}
         <Link href={`/payment?items=${cartData}`}>Betal nu</Link>
       </div>

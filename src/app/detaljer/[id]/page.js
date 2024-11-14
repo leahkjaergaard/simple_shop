@@ -88,15 +88,6 @@ const Page = ({ params }) => {
           </div>
         </div>
       </div>
-
-      {/* Miniaturebilleder, som brugeren kan klikke på for at ændre hovedbilledet */}
-      <div className="mt-6 flex space-x-4 justify-center md:justify-start">
-        {product.images.slice(0, 4).map((image, index) => (
-          <div key={index} className="border-2 border-black rounded-lg p-1 cursor-pointer" onClick={() => handleThumbnailClick(image)}>
-            <Image src={image} width={60} height={60} alt={`${product.title} ${index + 1}`} className="object-cover rounded-lg" />
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
