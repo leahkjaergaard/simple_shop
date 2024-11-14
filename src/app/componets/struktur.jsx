@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export default function Struktur({ products }) {
   const [cart, setCart] = useState([]);
-  const [category, setCategory] = useState('all');
+  const [category, setCategory] = useState("all");
 
   function addBasket(product) {
     const newProduct = {
@@ -19,63 +19,54 @@ export default function Struktur({ products }) {
   }
 
   function deleteProduct(id) {
-    setCart(cart.filter((item) => item.id !== id)); 
+    setCart(cart.filter((item) => item.id !== id));
   }
-  
-  const filteredProducts = category === 'all' 
-    ? products 
-    : products.filter(product => product.category === category);
 
-  
+  const filteredProducts = category === "all" ? products : products.filter((product) => product.category === category);
+
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
   };
 
   return (
     <div>
-     <div>
-      <div className="grid grid-cols-[3fr_1fr] min-h-screen">
-       <div className="py-5">
-        <div className="bg-white px-4">
-        <label htmlFor="category-select" className="text-black">
-          <b>FILTER</b>
-        </label>
-        <select
-          id="category-select"
-          className="bg-gray-800 text-white mx-4"
-          value={category}
-          onChange={handleCategoryChange}
-        >
-          <option value="all">All</option>
-          <option value="beauty">Beauty</option>
-          <option value="fragrances">Fragrances</option>
-          <option value="furniture">Furniture</option>
-          <option value="groceries">Groceries</option>
-        </select>
-      </div>
-        <div className="grid sm:grid-cols-2 grid-cols-1  lg:grid-cols-3 items-center justify-items-center p-8 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
-          {filteredProducts.length > 0 ? (
-            filteredProducts.map((product) => (
-              <div key={product.id} className="p-3 rounded-lg shadow-sm bg-gray-50 flex flex-col gap-1">
-                <a href={`/detaljer/${product.id}`}><Image src={product.thumbnail} width={250} height={250} alt={product.title}/></a>
-                <Link className="text-black" href={`/detaljer/${product.id}`}><b>
-                  {product.title}</b>
-                </Link>
-                <span className="text-black">{product.price} Kr</span>
-                <Form addBasket={addBasket} product={product} />
-              </div>
-            ))
-          ) : (
-            <p className="text-center text-white">No products available in this category.</p>
-          )}
+      <div>
+        <div className="grid grid-cols-[3fr_1fr] min-h-screen">
+          <div className="py-5">
+            <div className="bg-white px-4">
+              <label htmlFor="category-select" className="text-black">
+                <b>FILTER</b>
+              </label>
+              <select id="category-select" className="bg-gray-800 text-white mx-4" value={category} onChange={handleCategoryChange}>
+                <option value="all">All</option>
+                <option value="beauty">Beauty</option>
+                <option value="fragrances">Fragrances</option>
+                <option value="furniture">Furniture</option>
+                <option value="groceries">Groceries</option>
+              </select>
+            </div>
+            <div className="grid sm:grid-cols-2 grid-cols-1 lg:grid-cols-3 items-center justify-items-center p-8 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
+              {filteredProducts.length > 0 ? (
+                filteredProducts.map((product) => (
+                  <div key={product.id} className="p-3 rounded-lg shadow-sm bg-gray-50 flex flex-col gap-1">
+                    <a href={`/detaljer/${product.id}`}>
+                      <Image src={product.thumbnail} width={250} height={250} alt={product.title} />
+                    </a>
+                    <Link className="text-black" href={`/detaljer/${product.id}`}>
+                      <b>{product.title}</b>
+                    </Link>
+                    <span className="text-black">{product.price} Kr</span>
+                    <Form addBasket={addBasket} product={product} />
+                  </div>
+                ))
+              ) : (
+                <p className="text-center text-white">No products available in this category.</p>
+              )}
+            </div>
+          </div>
+          <Cartlist cart={cart} deleteProduct={deleteProduct} />
         </div>
-        
-       
       </div>
-      <Cartlist cart={cart} deleteProduct={deleteProduct} />
-      </div>
-       
-    </div>
     </div>
   );
 }
@@ -89,6 +80,8 @@ function Form({ addBasket, product }) {
 }
 
 function Cartlist({ cart, deleteProduct }) {
+  // Konverter den data der er i "kurven(cartList-arrayet)" til JSON-streng og derefter til noget som URL'en kan læse
+  const cartData = encodeURIComponent(JSON.stringify(cart));
 
   return (
     <div className="p-8 bg-sky-950">
@@ -98,31 +91,27 @@ function Cartlist({ cart, deleteProduct }) {
           <li key={item.id} className="flex flex-col xl:flex-row bg-gray-300 my-4 p-4 gap-2 text-black items-center">
             <Image src={item.thumbnail} width={125} height={125} alt={item.title} />
             <div className="flex flex-col gap-2">
-            <span><b>{item.title}</b></span>
-            <span>{item.price} DKK</span>
-            <ListItem id={item.id} deleteProduct={deleteProduct} />
+              <span>
+                <b>{item.title}</b>
+              </span>
+              <span>{item.price} DKK</span>
+              <ListItem id={item.id} deleteProduct={deleteProduct} />
             </div>
           </li>
-
         ))}
       </ul>
       <div>
-      <Link href={`/payment?items=${Cartlist}`}>
-        Go to Payment
-      </Link>
-    </div>
+        {/* Link til betalingsside med kurvdata i URL’en */}
+        <Link href={`/payment?items=${cartData}`}>Betal nu</Link>
+      </div>
     </div>
   );
 }
 
 function ListItem({ id, deleteProduct }) {
   return (
-    <button
-      onClick={() => deleteProduct(id)}
-      className="text-red-500"
-    >
+    <button onClick={() => deleteProduct(id)} className="text-red-500">
       Delete
     </button>
   );
 }
-
