@@ -22,7 +22,10 @@ export default function Struktur({ products }) {
     setCart(cart.filter((item) => item.id !== id));
   }
 
-  const filteredProducts = category === "all" ? products : products.filter((product) => product.category === category);
+  const filteredProducts =
+    category === "all"
+      ? products
+      : products.filter((product) => product.category === category);
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
@@ -37,7 +40,12 @@ export default function Struktur({ products }) {
               <label htmlFor="category-select" className="text-black">
                 <b>FILTER</b>
               </label>
-              <select id="category-select" className="bg-gray-800 text-white mx-4" value={category} onChange={handleCategoryChange}>
+              <select
+                id="category-select"
+                className="bg-gray-800 text-white mx-4"
+                value={category}
+                onChange={handleCategoryChange}
+              >
                 <option value="all">All</option>
                 <option value="beauty">Beauty</option>
                 <option value="fragrances">Fragrances</option>
@@ -45,14 +53,25 @@ export default function Struktur({ products }) {
                 <option value="groceries">Groceries</option>
               </select>
             </div>
-            <div className="grid sm:grid-cols-2 grid-cols-1  lg:grid-cols-3 items-center justify-items-center p-8 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
+            <div className="grid sm:grid-cols-2 grid-cols-1 lg:grid-cols-3 items-center justify-items-center p-8 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
               {filteredProducts.length > 0 ? (
                 filteredProducts.map((product) => (
-                  <div key={product.id} className="p-3 rounded-lg shadow-sm bg-gray-50 flex flex-col gap-1">
+                  <div
+                    key={product.id}
+                    className="p-3 rounded-lg shadow-sm bg-gray-50 flex flex-col gap-1"
+                  >
                     <a href={`/detaljer/${product.id}`}>
-                      <Image src={product.thumbnail} width={250} height={250} alt={product.title} />
+                      <Image
+                        src={product.thumbnail}
+                        width={250}
+                        height={250}
+                        alt={product.title}
+                      />
                     </a>
-                    <Link className="text-black" href={`/detaljer/${product.id}`}>
+                    <Link
+                      className="text-black"
+                      href={`/detaljer/${product.id}`}
+                    >
                       <b>{product.title}</b>
                     </Link>
                     <span className="text-black">{product.price} Kr</span>
@@ -60,7 +79,9 @@ export default function Struktur({ products }) {
                   </div>
                 ))
               ) : (
-                <p className="text-center text-white">No products available in this category.</p>
+                <p className="text-center text-white">
+                  No products available in this category.
+                </p>
               )}
             </div>
           </div>
@@ -80,13 +101,24 @@ function Form({ addBasket, product }) {
 }
 
 function Cartlist({ cart, deleteProduct }) {
+  // Konverter den data der er i "kurven(cartList-arrayet)" til JSON-streng og derefter til noget som URL'en kan læse 
+  const cartData = encodeURIComponent(JSON.stringify(cart));
+
   return (
     <div className="p-8 bg-sky-950">
       <h2 className="text-2xl mb-4">Indkøbskurv</h2>
       <ul>
         {cart.map((item) => (
-          <li key={item.id} className="flex flex-col xl:flex-row bg-gray-300 my-4 p-4 gap-2 text-black items-center">
-            <Image src={item.thumbnail} width={125} height={125} alt={item.title} />
+          <li
+            key={item.id}
+            className="flex flex-col xl:flex-row bg-gray-300 my-4 p-4 gap-2 text-black items-center"
+          >
+            <Image
+              src={item.thumbnail}
+              width={125}
+              height={125}
+              alt={item.title}
+            />
             <div className="flex flex-col gap-2">
               <span>
                 <b>{item.title}</b>
