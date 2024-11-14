@@ -45,7 +45,7 @@ export default function Struktur({ products }) {
                 <option value="groceries">Groceries</option>
               </select>
             </div>
-            <div className="grid sm:grid-cols-2 grid-cols-1 lg:grid-cols-3 items-center justify-items-center p-8 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
+            <div className="grid sm:grid-cols-2 grid-cols-1  lg:grid-cols-3 items-center justify-items-center p-8 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
               {filteredProducts.length > 0 ? (
                 filteredProducts.map((product) => (
                   <div key={product.id} className="p-3 rounded-lg shadow-sm bg-gray-50 flex flex-col gap-1">
@@ -80,9 +80,6 @@ function Form({ addBasket, product }) {
 }
 
 function Cartlist({ cart, deleteProduct }) {
-  // Konverter den data der er i "kurven(cartList-arrayet)" til JSON-streng og derefter til noget som URL'en kan læse
-  const cartData = encodeURIComponent(JSON.stringify(cart));
-
   return (
     <div className="p-8 bg-sky-950">
       <h2 className="text-2xl mb-4">Indkøbskurv</h2>
