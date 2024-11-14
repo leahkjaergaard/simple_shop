@@ -37,7 +37,7 @@ const Page = ({ params }) => {
     <div className="p-4 md:p-8 text-gray-800">
       {/* Navigationsknap til at gå tilbage til produktsiden */}
       <nav className="mb-4">
-        <Link href="/products" className="text-white p-2 rounded-lg text-sm md:text-base bg-sky-950">
+        <Link href="/products" className="text-white p-2 rounded-lg text-sm md:text-base bg-custom-green">
           Tilbage
         </Link>
       </nav>
@@ -45,15 +45,16 @@ const Page = ({ params }) => {
       {/* Sektion for produktdetaljer */}
       <div className="flex flex-col md:flex-row md:space-x-8">
         {/* Stort billede af produktet */}
-        <div className="flex-shrink-0 border-2 border-black p-4 rounded-lg mb-4 md:mb-0 w-full md:w-[300px] lg:w-[400px] xl:w-[500px]">{currentImage && <Image src={currentImage} width={500} height={500} alt={product.title} className="object-cover rounded-lg w-full h-auto" />}
-        {/* Miniaturebilleder, som brugeren kan klikke på for at ændre hovedbilledet */}
-      <div className="mt-6 flex space-x-4 justify-center md:justify-start">
-        {product.images.slice(0, 4).map((image, index) => (
-          <div key={index} className="border-2 border-black rounded-lg p-1 cursor-pointer" onClick={() => handleThumbnailClick(image)}>
-            <Image src={image} width={60} height={60} alt={`${product.title} ${index + 1}`} className="object-cover rounded-lg" />
+        <div className="flex-shrink-0 border-2 border-black p-4 rounded-lg mb-4 md:mb-0 w-full md:w-[300px] lg:w-[400px] xl:w-[500px]">
+          {currentImage && <Image src={currentImage} width={500} height={500} alt={product.title} className="object-cover rounded-lg w-full h-auto" />}
+          {/* Miniaturebilleder, som brugeren kan klikke på for at ændre hovedbilledet */}
+          <div className="mt-6 flex space-x-4 justify-center md:justify-start">
+            {product.images.slice(0, 4).map((image, index) => (
+              <div key={index} className="border-2 border-black rounded-lg p-1 cursor-pointer" onClick={() => handleThumbnailClick(image)}>
+                <Image src={image} width={60} height={60} alt={`${product.title} ${index + 1}`} className="object-cover rounded-lg" />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
         </div>
 
         {/* Sektion for produktinformation */}

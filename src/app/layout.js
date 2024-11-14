@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <header className="text-black text-center p-3 bg-red-50 flex justify-center">
+        <header className="text-black text-center p-3 bg-custom-beige flex justify-center">
           <nav>
             <ul className="flex gap-3">
               <li>
