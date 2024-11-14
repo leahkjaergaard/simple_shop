@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export default function Struktur({ products }) {
   const [cart, setCart] = useState([]);
-  const [category, setCategory] = useState('all');
+  const [category, setCategory] = useState("all");
 
   function addBasket(product) {
     const newProduct = {
@@ -16,12 +16,9 @@ export default function Struktur({ products }) {
     };
     setCart([newProduct, ...cart]);
   }
-  
-  const filteredProducts = category === 'all' 
-    ? products 
-    : products.filter(product => product.category === category);
 
-  
+  const filteredProducts = category === "all" ? products : products.filter((product) => product.category === category);
+
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
   };
@@ -32,12 +29,7 @@ export default function Struktur({ products }) {
         <label htmlFor="category-select" className="text-white">
           Choose a category
         </label>
-        <select
-          id="category-select"
-          className="bg-gray-800 text-white p-2"
-          value={category}
-          onChange={handleCategoryChange}
-        >
+        <select id="category-select" className="bg-gray-800 text-white p-2" value={category} onChange={handleCategoryChange}>
           <option value="all">All</option>
           <option value="beauty">Beauty</option>
           <option value="fragrances">Fragrances</option>
@@ -62,7 +54,7 @@ export default function Struktur({ products }) {
             <p className="text-center text-white">No products available in this category.</p>
           )}
         </div>
-        
+
         <Cartlist cart={cart} />
       </div>
     </div>
@@ -77,17 +69,29 @@ function Form({ addBasket, product }) {
   );
 }
 
-function Cartlist({ cart }) {
+function Cartlist({ cart, deleteProduct }) {
   return (
-    <div className="p-8  bg-sky-950">
+    <div className="p-8 bg-sky-950">
       <h2 className="text-2xl mb-4">Indkøbskurv</h2>
       <ul>
         {cart.map((item) => (
-          <li key={item.id}>
-            <span>{item.title}</span> - <span>{item.price}</span>
+          <li key={item.id} className="flex flex-col xl:flex-row bg-gray-300 my-4 p-4 gap-2 text-black items-center">
+            <Image src={item.thumbnail} width={125} height={125} alt={item.title} />
+            <div className="flex flex-col gap-2">
+              <span>
+                <b>{item.title}</b>
+              </span>
+              <span>{item.price} DKK</span>
+              <ListItem id={item.id} deleteProduct={deleteProduct} />
+            </div>
           </li>
         ))}
       </ul>
+      <div>
+        <Link href={`/payment?items=${encodeURIComponent(JSON.stringify(cart))}`}>
+          <a className="btn btn-primary">Go to Payment</a>
+        </Link>
+      </div>
     </div>
   );
 }
