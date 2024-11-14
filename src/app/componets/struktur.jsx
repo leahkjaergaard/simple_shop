@@ -107,7 +107,7 @@ function Cartlist({ cart, deleteProduct }) {
         ))}
       </ul>
       <div>
-      <Link href={`/payment?items=${Cartlist}`}>
+      <Link href={`/payment?items=${cart}`}>
         Go to Payment
       </Link>
     </div>
