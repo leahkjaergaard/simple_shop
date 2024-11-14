@@ -13,8 +13,13 @@ export default function Struktur({ products }) {
       id: crypto.randomUUID(),
       title: product.title,
       price: product.price,
+      thumbnail: product.thumbnail,
     };
     setCart([newProduct, ...cart]);
+  }
+
+  function deleteProduct(id) {
+    setCart(cart.filter((item) => item.id !== id)); 
   }
   
   const filteredProducts = category === 'all' 
@@ -28,13 +33,16 @@ export default function Struktur({ products }) {
 
   return (
     <div>
-      <div className="bg-black p-4">
-        <label htmlFor="category-select" className="text-white">
-          Choose a category
+     <div>
+      <div className="grid grid-cols-[3fr_1fr] min-h-screen">
+       <div className="py-5">
+        <div className="bg-white px-4">
+        <label htmlFor="category-select" className="text-black">
+          <b>FILTER</b>
         </label>
         <select
           id="category-select"
-          className="bg-gray-800 text-white p-2"
+          className="bg-gray-800 text-white mx-4"
           value={category}
           onChange={handleCategoryChange}
         >
@@ -45,16 +53,15 @@ export default function Struktur({ products }) {
           <option value="groceries">Groceries</option>
         </select>
       </div>
-
-      <div className="grid grid-cols-[3fr_1fr] min-h-screen">
-        <div className="grid grid-cols-3 items-center justify-items-center p-8 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
+        <div className="grid sm:grid-cols-2 grid-cols-1  lg:grid-cols-3 items-center justify-items-center p-8 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
-              <div key={product.id} className="p-3 rounded-lg shadow-sm bg-gray-50">
-                <Image src={product.thumbnail} width={250} height={250} alt={product.title} />
-                <Link className="text-black" href={`/detaljer/${product.id}`}>
-                  {product.title}
+              <div key={product.id} className="p-3 rounded-lg shadow-sm bg-gray-50 flex flex-col gap-1">
+                <a href={`/detaljer/${product.id}`}><Image src={product.thumbnail} width={250} height={250} alt={product.title}/></a>
+                <Link className="text-black" href={`/detaljer/${product.id}`}><b>
+                  {product.title}</b>
                 </Link>
+                <span className="text-black">{product.price} Kr</span>
                 <Form addBasket={addBasket} product={product} />
               </div>
             ))
@@ -63,31 +70,52 @@ export default function Struktur({ products }) {
           )}
         </div>
         
-        <Cartlist cart={cart} />
+       
       </div>
+      <Cartlist cart={cart} deleteProduct={deleteProduct} />
+      </div>
+       
+    </div>
     </div>
   );
 }
 
 function Form({ addBasket, product }) {
   return (
-    <button onClick={() => addBasket(product)} className=" bg-sky-950">
+    <button onClick={() => addBasket(product)} className="bg-sky-950">
       Læg i Kurv
     </button>
   );
 }
 
-function Cartlist({ cart }) {
+function Cartlist({ cart, deleteProduct }) {
   return (
-    <div className="p-8  bg-sky-950">
+    <div className="p-8 bg-sky-950">
       <h2 className="text-2xl mb-4">Indkøbskurv</h2>
       <ul>
         {cart.map((item) => (
-          <li key={item.id}>
-            <span>{item.title}</span> - <span>{item.price}</span>
+          <li key={item.id} className="flex flex-col xl:flex-row bg-gray-300 my-4 p-4 gap-2 text-black items-center">
+            <Image src={item.thumbnail} width={125} height={125} alt={item.title} />
+            <div className="flex flex-col gap-2">
+            <span><b>{item.title}</b></span>
+            <span>{item.price} DKK</span>
+            <ListItem id={item.id} deleteProduct={deleteProduct} />
+            </div>
           </li>
         ))}
       </ul>
     </div>
   );
 }
+
+function ListItem({ id, deleteProduct }) {
+  return (
+    <button
+      onClick={() => deleteProduct(id)}
+      className="text-red-500"
+    >
+      Delete
+    </button>
+  );
+}
+
