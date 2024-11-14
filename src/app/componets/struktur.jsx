@@ -109,7 +109,7 @@ function Cartlist({ cart, deleteProduct }) {
               </span>
               <span>{item.price} DKK</span>
               <span>Mængde: {item.quantity}</span>
-              <ListItem id={item.id} deleteProduct={deleteProduct} />
+              n <ListItem id={item.id} deleteProduct={deleteProduct} />
             </div>
           </li>
         ))}
