@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function PaymentPage() {
   const searchParams = useSearchParams();
@@ -15,6 +16,7 @@ export default function PaymentPage() {
  const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
   <div className="p-4 md:p-8">
     <div>
       <nav className="mb-4">
@@ -53,6 +55,7 @@ export default function PaymentPage() {
       )}
     </div>
   </div>
+  </Suspense>
 );
 
 }
