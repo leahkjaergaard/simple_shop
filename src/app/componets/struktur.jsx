@@ -9,13 +9,26 @@ export default function Struktur({ products }) {
   const [category, setCategory] = useState("all");
 
   function addBasket(product) {
-    const newProduct = {
-      id: crypto.randomUUID(),
-      title: product.title,
-      price: product.price,
-      thumbnail: product.thumbnail,
-    };
-    setCart([newProduct, ...cart]);
+    setCart((prevCart) => {
+      const existingProduct = prevCart.find((item) => item.title === product.title);
+
+      if (existingProduct) {
+        // Hvis produktet allerede findes, opdater mængden
+        return prevCart.map((item) => (item.title === product.title ? { ...item, quantity: item.quantity + 1 } : item));
+      } else {
+        // Ellers tilføj produktet med quantity 1
+        return [
+          ...prevCart,
+          {
+            id: crypto.randomUUID(),
+            title: product.title,
+            price: product.price,
+            thumbnail: product.thumbnail,
+            quantity: 1,
+          },
+        ];
+      }
+    });
   }
 
   function deleteProduct(id) {
@@ -95,6 +108,7 @@ function Cartlist({ cart, deleteProduct }) {
                 <b>{item.title}</b>
               </span>
               <span>{item.price} DKK</span>
+              <span>Mængde: {item.quantity}</span>
               <ListItem id={item.id} deleteProduct={deleteProduct} />
             </div>
           </li>
