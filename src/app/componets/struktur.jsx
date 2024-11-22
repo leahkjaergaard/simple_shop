@@ -16,7 +16,7 @@ export default function Struktur({ products }) {
       const existingProduct = prevCart.find((item) => item.title === product.title);
 
       if (existingProduct) {
-        // Hvis varen allerede er i kurven, opdater med antal varer
+        
         return prevCart.map((item) => (item.title === product.title ? { ...item, quantity: item.quantity + 1 } : item));
       } else {
         // Hvis varen ikke allerede er i kurven, tilføj den til kurven
