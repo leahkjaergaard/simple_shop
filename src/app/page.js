@@ -9,7 +9,7 @@ export default function Home() {
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-0">
           <h1 className="text-white text-9xl font-bold mb-4">LEMIL</h1>
           <Link href="/products" className="bg-custom-green text-white px-6 py-2 rounded-full hover:bg-green-800 transition-all duration-400">
-            UDFORSK NU!
+            UDFORSK NU
           </Link>
         </div>
       </div>
